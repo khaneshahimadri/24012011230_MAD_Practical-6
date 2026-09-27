@@ -10,10 +10,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-class SplashActivity : AppCompatActivity() , Animation.AnimationListener{
+
+class SplashActivity : AppCompatActivity(), Animation.AnimationListener{
+
     lateinit var guniframeanimation: AnimationDrawable
-    lateinit var inglogo: ImageView
+    lateinit var imglogo: ImageView
     lateinit var gunianimation: Animation
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,10 +26,10 @@ class SplashActivity : AppCompatActivity() , Animation.AnimationListener{
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        inglogo=findViewById(R.id.inglogo)
-        inglogo.setBackgroundResource(R.drawable.uvpce_animation_list)
-        guniframeanimation=inglogo.background as AnimationDrawable
-        gunianimation= AnimationUtils.loadAnimation(this,R.anim.twinanimation)
+        imglogo = findViewById(R.id.imglogo)
+        imglogo.setBackgroundResource(R.drawable.uvpce_animation_list)
+        guniframeanimation = imglogo.background as AnimationDrawable
+        gunianimation = AnimationUtils.loadAnimation(this, R.anim.twinanimation)
         gunianimation.setAnimationListener(this)
     }
 
@@ -34,13 +37,17 @@ class SplashActivity : AppCompatActivity() , Animation.AnimationListener{
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus){
             guniframeanimation.start()
-            inglogo.startAnimation(gunianimation)
+            imglogo.startAnimation(gunianimation)
         }
-        else guniframeanimation.stop()
+        else{
+            guniframeanimation.stop()
+        }
     }
 
     override fun onAnimationEnd(animation: Animation?) {
-        Intent(this, MainActivity::class.java).also { startActivity(it) }
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onAnimationRepeat(animation: Animation?) {
@@ -48,6 +55,6 @@ class SplashActivity : AppCompatActivity() , Animation.AnimationListener{
     }
 
     override fun onAnimationStart(animation: Animation?) {
+
     }
 }
-
